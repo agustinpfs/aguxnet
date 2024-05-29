@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LNTXBOT commands</title>
+    <title>Electrum installation commands</title>
     <style>
         .div {
             margin-left: 1rem;
@@ -22,94 +22,38 @@
 
 <body>
     <h3>AGUXNET ==> ==> ==></h3>
-    <h1>Comandos elementales LNTXBOT</h1>
+    <h1>Comandos Linux en instalación de Electrum</h1>
     <div class="div">
-        <p><strong>/start</strong></p>
-        <li>Inicia interacción con el bot</li>
-        <li>Genera tutorial con los principales comandos</li>
+        <p><strong>Chek version gpg (verificación firmas)</strong></p>
+        <code>gpg --version</code>
+        <li>  <a href='https://github.com/spesmilo/electrum-docs/blob/master/gpg-check.rst'/>Guía para la verificación de firmas</a></li>
         <hr>
-        <p><strong>/help</strong></p>
-        <li>Lista principales comandos</li>
+        <p><strong>Instalación</strong></p>
+        <p>Comando si tenés el error de LIBFUSE</p>
+        <code>sudo apt-get -y install libfuse2</code>
         <hr>
-        <p><strong>/help &lt;nombre comando&gt;</strong></p>
-        <li>Detalles de uso del comando especificado</li>
+        <p><strong>Para agregar acceso directo e ícono</strong></p>
+        <p>Crear archivo electrum.desktop</p>
+        <code>En Home/.local/share/applications/ :</code> <br>
+        <code>nano electrum.desktop</code>
+        <code>[Desktop Entry]
+Name=Electrum
+Exec=/home/agustin/Electrum/electrum-4.5.4-x86_64.AppImage
+Icon=/opt/Electrum/electrum-icon.png
+Type=Application</code>
+        <li>Cambiar el nombre de home (agustin) y corroborar el nombre del archivo por si cambió la version.</li>
         <hr>
-        <p><strong>/balance</strong></p>
-        <li>Saldo en la wallet.</li>
-        <li>Total recibido.</li>
-        <li>Total enviado.</li>
-        <li>Total fees pagados.</li>
-        <hr>
-        <p><strong>/transactions</strong></p>
-        <li>Últimas 25 transacciones</li>
-        <hr>
-        <p><strong>/invoice &lt;satoshis&gt; &lt;description&gt;</strong></p>
-        <li>Genera un invoice LN con el monto indicado y opcionalmente una descripción.</li>
-        <p>Ejemplo:</p>
-        <p>/invoice 300 'pago servicio'</p>
-        <hr>
-        <p><strong>/invoice any</strong></p>
-        <li>Genera un invoice sin monto.</li>
-        <hr>
-        <p><strong>/invoice lnurl</strong></p>
-        <li>Genera un invoice estático LNURL.</li>
-        <hr>
-        <p><strong>/send &lt;satoshis&gt; @username</strong></p>
-        <li>Enviar sats a otro usuario de Telegram.</li>
-        <hr>
-        <p><strong>/send &lt;sats&gt; bc1...(dirección btc)</strong></p>
-        <li>Enviar sats a una dirección btc on-chain</li>
-
-        <h2>Opciones de grupo</h2>
-        <p><strong>/toggle ticket &lt;satoshis&gt;</strong></p>
-        <li>Permite al dueño del grupo cobrar un ticket de ingreso.</li>
-        <p><strong>/fine &lt;satoshis&gt; &lt;motivo&gt;</strong></p>
-        <li>Aplica una multa a algún usuario que se saltó las reglas.</li>
-        <hr>
-        <p><strong>/toggle expensive &lt;satoshis&gt;
-                '\b&lt;palabra&gt;\b|\b&lt;palabra&gt;\b|\b&lt;palabra&gt;\b'</strong></p>
-        <li>Los mensajes que contengan las palabras definidas deberán pagar la tarifa impuesta. En caso contrario el
-            mensaje se rechaza</li>
-        <hr>
-        <p><strong>/hide &lt;sats&gt; &lt;titulo&gt;</strong></p>
-        <li>Ocultar mensajes para ser revelados a quien pague la tarifa</li>
-        <p>SE REALIZA EN EL CHAT DEL BOT!</p>
-        <p>Se escribe el mensaje a ocultar. Se envía y se responde con el comando /hide &lt;sats&gt; &lt;titulo&gt; y se
-            comparte en el grupo</p>
-        <p><strong>/fundraise &lt;sats&gt; &lt;num_participantes&gt; &lt;receptor&gt;</strong></p>
-        <li>Recaudar fondos para un usuario en particular</li>
-        <p>Ejemplo:</p>
-        <p>/fundraise 100 5 @user_uno</p>
-        <hr>
-        <p><strong>/giveaway &lt;sats&gt;</strong></p>
-        <li>Regalar satoshis a la primer persona que los reclame</li>
-        <hr>
-        <p><strong>/coinflip &lt;sats&gt; &lt;num_participantes&gt;</strong></p>
-        <li>Crear una lotería</li>
-        <p>Ejemplo:</p>
-        <p>/coinflip 100 4</p>
-        <p>Cuando 4 usuarios paguen 100 sats, el bot elije aleatoriamente al ganador que se lleva los 400 sats</p>
-        <hr>
-        <p><strong>/giveflip &lt;sats&gt; &lt;num_participantes&gt;</strong></p>
-        <li>Lotería donde el que la publica no participa y es él quien paga el premio</li>
-        <hr>
-        <p><strong>/sats4ads</strong></p>
-        <li>Crear anuncios o cobrar por ver anuncios</li>
-        <p>Consultar /hepl sats4ads</p>
-        <hr>
-        <p><strong> @lntxbot give &lt;sats&gt; @username</strong></p>
-        <li>Enviar btc a un miembro en un grupo que no tenga el bot</li>
-        <p>Consultar /hepl sats4ads</p>
+        <p>Agregar imagen ícono:</p>
+        <code>sudo wget http://icons.iconarchive.com/icons/alecive/flatwoken/256/Apps-Electrum-icon.png</code>
+        <p>Cambiar nombre archivo icono (por el mismo que tengas en tu archivo electrum.desktop):</p>
+        <code>sudo mv Apps-Electrum-icon.png electrum-icon.png</code>
+       
     </div>
     <br>
     <br>
     <div class="">
-        <p>Si esta información te ha sido útil y piensas que merece tu apoyo puedes enviar algunos sats a esta dirección
-            LNURL. Gracias!</p>
-        <a href='https://postimg.cc/LJQvMS5v' target='_blank'><img
-                src='https://i.postimg.cc/LJQvMS5v/photo-2022-09-22-11-09-44.jpg' border='0'
-                alt='photo-2022-09-22-11-09-44' /></a>
-        <p>LNURL1DP68GURN8GHJ7MRWW3UXYMM59E3K7MF0D3H82UNV9ACXZ7FLW4EK2UNFVS7N2V34XSUNX89LPPA</p>
+       <p>PayNym: <code>+smallbar1d1</code></p>
+        <p>Gracias!!!!!!</p>
     </div>
 
 </body>
