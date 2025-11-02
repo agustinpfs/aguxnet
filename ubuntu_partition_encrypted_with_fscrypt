@@ -31,35 +31,58 @@
         <code>Get-FileHash ubuntu-24.04.3-desktop-amd64.iso -Algorithm SHA256</code><br> <i> Verificar nombre de archivo .iso que coincida con el descargado<i>
         <hr>
         <p><strong>Comandos para la configuración de fscrypt desde USB-Live</strong></p>
-        <code>sudo apt-get -y install libfuse2</code>
-lsblk -o NAME,SIZE,FSTYPE
-sudo mkdir /mnt/root
-sudo mount /dev/sda5 /mnt/root 
-sudo apt update
-sudo apt install fscrypt 
-
-sudo fscrypt setup
-sudo fscrypt setup /mnt/root
-sudo mkdir /mnt/root/home/agux.new
-sudo chown -R 1000:1000 /mnt/root/home/agux.new
-ls -ld /mnt/root/home/agux.new
-
-sudo tune2fs -O encrypt /dev/sda5
-fscrypt encrypt /mnt/root/home/agux.new
-
-fscrypt status /mnt/root/home/agux.new
-fscrypt unlock /mnt/root/home/agux.new
-
-rsync -aAXv /mnt/root/home/agux/ /mnt/root/home/agux.new/	
-ls /mnt/root/home/agux.new
-sudo mv /mnt/root/home/agux /mnt/root/home/agux.old
-sudo mv /mnt/root/home/agux.new /mnt/root/home/agux
-chown -R 1000:1000 /mnt/root/home/agux
-sudo umount -R /mnt/root
-sudo reboot
+        <strong>⚠️ Los comandos que incluyan sda5 (nombre de la poartición pueden cambiar en tu caso.. revisalo!!)</strong>
+        <code>lsblk -o NAME,SIZE,FSTYPE</code>
+        <code>sudo mkdir /mnt/root</code>
+        <code>sudo mount /dev/sda5 /mnt/root</code> 
+        <code>sudo apt update</code>
+        <code>sudo apt install fscrypt</code> 
+        <code>sudo fscrypt setup</code>
+        <code>sudo fscrypt setup /mnt/root</code>
+        <code>sudo mkdir /mnt/root/home/tu_usuario.new</code>
+        <code>sudo chown -R 1000:1000 /mnt/root/home/tu_usuario.new</code>
+        <code>ls -ld /mnt/root/home/tu_usuario.new</code>
+        <code>sudo tune2fs -O encrypt /dev/sda5</code>
+        <code>fscrypt encrypt /mnt/root/home/tu_usuario.new</code>        
+        <code>fscrypt status /mnt/root/home/tu_usuario.new</code>
+        <code>fscrypt unlock /mnt/root/home/tu_usuario.new</code>
+        <code>rsync -aAXv /mnt/root/home/agux/ /mnt/root/home/tu_usuario.new/</code>	
+        <code>ls /mnt/root/home/tu_usuario.new</code>
+        <code>sudo mv /mnt/root/home/agux /mnt/root/home/tu_usuario.old</code>
+        <code>sudo mv /mnt/root/home/agux.new /mnt/root/home/tu_usuario</code>
+        <code>chown -R 1000:1000 /mnt/root/home/tu_usuario</code>
+        <code>sudo umount -R /mnt/root</code>
+        <code>sudo reboot</code>
 
         <hr>
-        <p><strong>Para agregar acceso directo e ícono</strong></p>
+        <p><strong>Comandos para la configuración de fscrypt desde Ubuntu instalado</strong></p>
+<code>sudo apt update</code>
+<code>sudo apt install fscrypt libpam-fscrypt</code>
+
+<code>sudo fscrypt setup</code>
+
+<code>fscrypt status /home/agux</code>
+<code>fscrypt unlock /home/agux</code>
+
+<code>sudo pam-auth-update</code>
+
+<code>sudo fscrypt metadata create protector --source=pam_passphrase --user=agux /</code>
+[CHECK ID]6d236c0411702e1e
+
+<code>fscrypt status /home/agux</code>
+(CHECK policy) Ejemplo: 692c5c7dea282034e7af426061aa6d59 <br>
+<code>sudo fscrypt metadata add-protector-to-policy   --protector=/:6d236c0411702e1e   --policy=/:692c5c7dea282034e7af426061aa6d59</code>
+<code>fscrypt status /home/agux</code> 
+[VERIF] <br>
+
+<code>sudo rm -rf /home/agux.old</code>
+
+
+
+
+
+
+
         <p><strong>Acceso directo:</strong></p>
         <p>Crear archivo electrum.desktop:</p>
         <code>En Home/.local/share/applications/ :</code> <br>
