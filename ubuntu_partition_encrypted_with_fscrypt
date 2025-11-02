@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrum installation commands</title>
+    <style>
+        .div {
+            margin-left: 1rem;
+            width: 57%;
+            font-family: monospace;
+        }
+
+        /* hr {
+            width: 50%;
+            text-align: left;
+        } */
+    </style>
+</head>
+
+<body>
+    <h3>AGUXNET ==> ==> ==></h3>
+    <h1>Comandos Tutorial de creación de partición de disco con Linux/Ubuntu junto a Windows</h1>
+    <div class="div">
+        <p><strong>Verificación de firmas del archivo .iso de Ubuntu - GPG</strong></p>
+        <code>gpg --keyserver.ubuntu.com –recv-keys 843938DF228D22F7B3742BC0D94AA3F0EFE21092</code><br>
+        <code>gpg –verify SHA256SUMS.gpg SHA256SUMS.txt</code><br>
+        <code>Get-FileHash ubuntu-24.04.3-desktop-amd64.iso -Algorithm SHA256</code><br> <i> Verificar nombre de archivo .iso que coincida con el descargado<i>
+        <hr>
+        <p><strong>Comandos para la configuración de fscrypt desde USB-Live</strong></p>
+        <code>sudo apt-get -y install libfuse2</code>
+lsblk -o NAME,SIZE,FSTYPE
+sudo mkdir /mnt/root
+sudo mount /dev/sda5 /mnt/root 
+sudo apt update
+sudo apt install fscrypt 
+
+sudo fscrypt setup
+sudo fscrypt setup /mnt/root
+sudo mkdir /mnt/root/home/agux.new
+sudo chown -R 1000:1000 /mnt/root/home/agux.new
+ls -ld /mnt/root/home/agux.new
+
+sudo tune2fs -O encrypt /dev/sda5
+fscrypt encrypt /mnt/root/home/agux.new
+
+fscrypt status /mnt/root/home/agux.new
+fscrypt unlock /mnt/root/home/agux.new
+
+rsync -aAXv /mnt/root/home/agux/ /mnt/root/home/agux.new/	
+ls /mnt/root/home/agux.new
+sudo mv /mnt/root/home/agux /mnt/root/home/agux.old
+sudo mv /mnt/root/home/agux.new /mnt/root/home/agux
+chown -R 1000:1000 /mnt/root/home/agux
+sudo umount -R /mnt/root
+sudo reboot
+
+        <hr>
+        <p><strong>Para agregar acceso directo e ícono</strong></p>
+        <p><strong>Acceso directo:</strong></p>
+        <p>Crear archivo electrum.desktop:</p>
+        <code>En Home/.local/share/applications/ :</code> <br>
+        <code>nano electrum.desktop</code><br><br>
+         <p>Copiar dentro del archivo electrum.desktop:</p>
+        <code>
+[Desktop Entry] <br>
+Name=Electrum<br>
+Exec=/home/agustin/Electrum/electrum-4.5.5-x86_64.AppImage<br>
+Icon=/opt/Electrum/electrum-icon.png<br>
+Type=Application</code><br>
+        <h3>ATENCIÓN: En "Exec" cambiar el nombre de home (agustin) y corroborar el nombre del archivo (electrum-4.5.5-x86_64.AppImage) por si cambió la versión.</h3>
+        <hr>
+        <p><strong>Agregar imagen ícono:</strong></p>
+        <code>sudo wget http://icons.iconarchive.com/icons/alecive/flatwoken/256/Apps-Electrum-icon.png</code>
+        <p>Cambiar nombre archivo icono (por el mismo que tengas en tu archivo electrum.desktop):</p>
+        <code>sudo mv Apps-Electrum-icon.png electrum-icon.png</code>
+       
+    </div>
+    <br>
+    <br>
+    <div class="">
+       <p>PayNym: <code>+smallbar1d1</code></p>
+        <p>Gracias!!!!!!</p>
+    </div>
+
+</body>
+
+</html>
