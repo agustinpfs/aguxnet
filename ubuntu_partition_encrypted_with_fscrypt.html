@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrum installation commands</title>
+    <title>fscrypt commands</title>
     <style>
         .div {
             margin-left: 1rem;
@@ -27,86 +27,63 @@
     <div class="div">
         <p><strong>Verificación de firmas del archivo .iso de Ubuntu - GPG</strong></p>
         <code>gpg --keyserver.ubuntu.com –recv-keys 843938DF228D22F7B3742BC0D94AA3F0EFE21092</code><br>
-        <code>gpg –verify SHA256SUMS.gpg SHA256SUMS.txt</code><br>
-        <code>Get-FileHash ubuntu-24.04.3-desktop-amd64.iso -Algorithm SHA256</code><br> <i> Verificar nombre de archivo .iso que coincida con el descargado<i>
+        <code>gpg –verify SHA256SUMS.gpg SHA256SUMS.txt</code><br><br>
+        <code>Get-FileHash ubuntu-24.04.3-desktop-amd64.iso -Algorithm SHA256</code><br> 
+        <i> ⚠️Verificar nombre de archivo .iso que coincida con el descargado<i>
         <hr>
         <p><strong>Comandos para la configuración de fscrypt desde USB-Live</strong></p>
         <strong>⚠️ Los comandos que incluyan sda5 (nombre de la poartición pueden cambiar en tu caso.. revisalo!!)</strong>
-        <code>lsblk -o NAME,SIZE,FSTYPE</code>
-        <code>sudo mkdir /mnt/root</code>
-        <code>sudo mount /dev/sda5 /mnt/root</code> 
-        <code>sudo apt update</code>
-        <code>sudo apt install fscrypt</code> 
-        <code>sudo fscrypt setup</code>
-        <code>sudo fscrypt setup /mnt/root</code>
-        <code>sudo mkdir /mnt/root/home/tu_usuario.new</code>
-        <code>sudo chown -R 1000:1000 /mnt/root/home/tu_usuario.new</code>
-        <code>ls -ld /mnt/root/home/tu_usuario.new</code>
-        <code>sudo tune2fs -O encrypt /dev/sda5</code>
-        <code>fscrypt encrypt /mnt/root/home/tu_usuario.new</code>        
-        <code>fscrypt status /mnt/root/home/tu_usuario.new</code>
-        <code>fscrypt unlock /mnt/root/home/tu_usuario.new</code>
-        <code>rsync -aAXv /mnt/root/home/agux/ /mnt/root/home/tu_usuario.new/</code>	
-        <code>ls /mnt/root/home/tu_usuario.new</code>
-        <code>sudo mv /mnt/root/home/agux /mnt/root/home/tu_usuario.old</code>
-        <code>sudo mv /mnt/root/home/agux.new /mnt/root/home/tu_usuario</code>
-        <code>chown -R 1000:1000 /mnt/root/home/tu_usuario</code>
-        <code>sudo umount -R /mnt/root</code>
-        <code>sudo reboot</code>
+        <code>lsblk -o NAME,SIZE,FSTYPE</code><br>
+        <code>sudo mkdir /mnt/root</code><br>
+        <code>sudo mount /dev/sda5 /mnt/root</code><br>
+        <code>sudo apt update</code><br>
+        <code>sudo apt install fscrypt</code><br>
+        <code>sudo fscrypt setup</code><br>
+        <code>sudo fscrypt setup /mnt/root</code><br>
+        <code>sudo mkdir /mnt/root/home/tu_usuario.new</code><br>
+        <code>sudo chown -R 1000:1000 /mnt/root/home/tu_usuario.new</code><br>
+        <code>ls -ld /mnt/root/home/tu_usuario.new</code><br>
+        <code>sudo tune2fs -O encrypt /dev/sda5</code><br>
+        <code>fscrypt encrypt /mnt/root/home/tu_usuario.new</code><br>
+        <code>fscrypt status /mnt/root/home/tu_usuario.new</code><br>
+        <code>fscrypt unlock /mnt/root/home/tu_usuario.new</code><br>
+        <code>rsync -aAXv /mnt/root/home/agux/ /mnt/root/home/tu_usuario.new/</code><br>
+        <code>ls /mnt/root/home/tu_usuario.new</code><br>
+        <code>sudo mv /mnt/root/home/agux /mnt/root/home/tu_usuario.old</code><br>
+        <code>sudo mv /mnt/root/home/agux.new /mnt/root/home/tu_usuario</code><br>
+        <code>chown -R 1000:1000 /mnt/root/home/tu_usuario</code><br>
+        <code>sudo umount -R /mnt/root</code><br>
+        <code>sudo reboot</code><br>
 
         <hr>
         <p><strong>Comandos para la configuración de fscrypt desde Ubuntu instalado</strong></p>
-<code>sudo apt update</code>
-<code>sudo apt install fscrypt libpam-fscrypt</code>
+        <code>sudo apt update</code><br>
+        <code>sudo apt install fscrypt libpam-fscrypt</code><br>
+        <code>sudo fscrypt setup</code><br>
+        <code>fscrypt status /home/agux</code><br>
+        <code>fscrypt unlock /home/agux</code><br>
+        <code>sudo pam-auth-update</code><br><br>
+        
+        <code>sudo fscrypt metadata create protector --source=pam_passphrase --user=agux /</code>
+        [⚠️CHECK ID del protector] Ejemplo: 6d236c0411702e1e<br><br>
+            
+        <code>fscrypt status /home/agux</code><br>
+        (⚠️CHECK policy) Ejemplo: 692c5c7dea282034e7af426061aa6d59 <br><br>
+            
+        <code>sudo fscrypt metadata add-protector-to-policy   --protector=/:6d236c0411702e1e   --policy=/:692c5c7dea282034e7af426061aa6d59</code><br>
+            ⚠️ Cambia los id por los tuyos <br><br>
+        <code>fscrypt status /home/agux</code> <br>
+        [VERIF] <br>
+        
+        <code>sudo rm -rf /home/agux.old</code><br>
 
-<code>sudo fscrypt setup</code>
-
-<code>fscrypt status /home/agux</code>
-<code>fscrypt unlock /home/agux</code>
-
-<code>sudo pam-auth-update</code>
-
-<code>sudo fscrypt metadata create protector --source=pam_passphrase --user=agux /</code>
-[CHECK ID]6d236c0411702e1e
-
-<code>fscrypt status /home/agux</code>
-(CHECK policy) Ejemplo: 692c5c7dea282034e7af426061aa6d59 <br>
-<code>sudo fscrypt metadata add-protector-to-policy   --protector=/:6d236c0411702e1e   --policy=/:692c5c7dea282034e7af426061aa6d59</code>
-<code>fscrypt status /home/agux</code> 
-[VERIF] <br>
-
-<code>sudo rm -rf /home/agux.old</code>
-
-
-
-
-
-
-
-        <p><strong>Acceso directo:</strong></p>
-        <p>Crear archivo electrum.desktop:</p>
-        <code>En Home/.local/share/applications/ :</code> <br>
-        <code>nano electrum.desktop</code><br><br>
-         <p>Copiar dentro del archivo electrum.desktop:</p>
-        <code>
-[Desktop Entry] <br>
-Name=Electrum<br>
-Exec=/home/agustin/Electrum/electrum-4.5.5-x86_64.AppImage<br>
-Icon=/opt/Electrum/electrum-icon.png<br>
-Type=Application</code><br>
-        <h3>ATENCIÓN: En "Exec" cambiar el nombre de home (agustin) y corroborar el nombre del archivo (electrum-4.5.5-x86_64.AppImage) por si cambió la versión.</h3>
-        <hr>
-        <p><strong>Agregar imagen ícono:</strong></p>
-        <code>sudo wget http://icons.iconarchive.com/icons/alecive/flatwoken/256/Apps-Electrum-icon.png</code>
-        <p>Cambiar nombre archivo icono (por el mismo que tengas en tu archivo electrum.desktop):</p>
-        <code>sudo mv Apps-Electrum-icon.png electrum-icon.png</code>
-       
-    </div>
     <br>
     <br>
     <div class="">
        <p>PayNym: <code>+smallbar1d1</code></p>
-        <p>Gracias!!!!!!</p>
+       <p> <code>bc1q3907lt5w2fxpp0ffq92qfs34wcg8qzg0ntmtru</code></p>
+       <p> Lightning Address <code>agux@coinos.io</code></p>
+       <p>Gracias!!!!!!</p>
     </div>
 
 </body>
