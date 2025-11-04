@@ -47,10 +47,10 @@
         <code>fscrypt encrypt /mnt/root/home/tu_usuario.new</code><br>
         <code>fscrypt status /mnt/root/home/tu_usuario.new</code><br>
         <code>fscrypt unlock /mnt/root/home/tu_usuario.new</code><br>
-        <code>rsync -aAXv /mnt/root/home/agux/ /mnt/root/home/tu_usuario.new/</code><br>
+        <code>rsync -aAXv /mnt/root/home/tu_usuario/ /mnt/root/home/tu_usuario.new/</code><br>
         <code>ls /mnt/root/home/tu_usuario.new</code><br>
-        <code>sudo mv /mnt/root/home/agux /mnt/root/home/tu_usuario.old</code><br>
-        <code>sudo mv /mnt/root/home/agux.new /mnt/root/home/tu_usuario</code><br>
+        <code>sudo mv /mnt/root/home/tu_usuario /mnt/root/home/tu_usuario.old</code><br>
+        <code>sudo mv /mnt/root/home/tu_usuario.new /mnt/root/home/tu_usuario</code><br>
         <code>chown -R 1000:1000 /mnt/root/home/tu_usuario</code><br>
         <code>sudo umount -R /mnt/root</code><br>
         <code>sudo reboot</code><br>
@@ -60,22 +60,22 @@
         <code>sudo apt update</code><br>
         <code>sudo apt install fscrypt libpam-fscrypt</code><br>
         <code>sudo fscrypt setup</code><br>
-        <code>fscrypt status /home/agux</code><br>
-        <code>fscrypt unlock /home/agux</code><br>
+        <code>fscrypt status /home/tu_usuario</code><br>
+        <code>fscrypt unlock /home/tu_usuario</code><br>
         <code>sudo pam-auth-update</code><br><br>
         
-        <code>sudo fscrypt metadata create protector --source=pam_passphrase --user=agux /</code>
+        <code>sudo fscrypt metadata create protector --source=pam_passphrase --user=tu_usuario /</code>
         [⚠️CHECK ID del protector] Ejemplo: 6d236c0411702e1e<br><br>
             
-        <code>fscrypt status /home/agux</code><br>
+        <code>fscrypt status /home/tu_usuario</code><br>
         (⚠️CHECK policy) Ejemplo: 692c5c7dea282034e7af426061aa6d59 <br><br>
             
         <code>sudo fscrypt metadata add-protector-to-policy   --protector=/:6d236c0411702e1e   --policy=/:692c5c7dea282034e7af426061aa6d59</code><br>
             ⚠️ Cambia los id por los tuyos <br><br>
-        <code>fscrypt status /home/agux</code> <br>
+        <code>fscrypt status /home/tu_usuario</code> <br>
         [VERIF] <br>
         
-        <code>sudo rm -rf /home/agux.old</code><br>
+        <code>sudo rm -rf /home/tu_usuario.old</code><br>
 
     <br>
     <br>
