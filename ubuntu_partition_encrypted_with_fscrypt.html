@@ -10,7 +10,7 @@
     <style>
         .div {
             margin-left: 1rem;
-            width: 57%;
+            width: 70%;
             font-family: monospace;
         }
 
@@ -30,9 +30,9 @@
         <code>1) gpg --keyserver keyserver.ubuntu.com –recv-keys 843938DF228D22F7B3742BC0D94AA3F0EFE21092</code><br>
         <code>2) gpg –verify SHA256SUMS.gpg SHA256SUMS.txt</code><br><br>
         <code>3) Get-FileHash ubuntu-24.04.3-desktop-amd64.iso -Algorithm SHA256</code><br> 
-        <i> ⚠️Verificar nombre de archivo .iso que coincida con el descargado<i>
+        <i> ⚠️Verificar nombre de archivo .iso que coincida con el descargado<i><br> <br> 
         <hr>
-        <p><strong>Comandos para la configuración de fscrypt desde USB-Live</strong></p>
+        <p><strong>Comandos para la configuración de fscrypt desde USB-Live</strong></p><br> 
         <strong>⚠️ Los comandos que incluyan sda5 (nombre de la poartición pueden cambiar en tu caso.. revisalo!!)</strong><br><br>
         <code>lsblk -o NAME,SIZE,FSTYPE</code><br>
         <code>sudo mkdir /mnt/root</code><br>
