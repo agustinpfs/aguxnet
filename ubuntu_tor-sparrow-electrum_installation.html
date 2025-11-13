@@ -10,7 +10,7 @@
     <style>
         .div {
             margin-left: 1rem;
-            width: 57%;
+            width: 70%;
             font-family: monospace;
         }
 
@@ -32,49 +32,49 @@
         <code>sudo apt install torsocks</code><br>
         <code>echo "alias wget='torsocks wget'" >> ~/.bashrc</code><br>
         <code>source ~/.bashrc</code><br>
-        <code>wget https://check.torproject.org</code><br>
+        <code>wget https://check.torproject.org</code><br><br> 
         <code>nano index.html</code><br>
-        [para salir: ctrl x]<br>
+        [para salir: ctrl x]<br><br> 
         
         <code>wget https://www.torproject.org/dist/torbrowser/15.0/tor-browser-linux-x86_64-15.0.tar.xz</code><br>
-        <code>wget https://www.torproject.org/dist/torbrowser/15.0/tor-browser-linux-x86_64-15.0.tar.xz.asc</code><br>        
+        <code>wget https://www.torproject.org/dist/torbrowser/15.0/tor-browser-linux-x86_64-15.0.tar.xz.asc</code><br><br>      
         <code>gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org</code><br>
-        [CHECK fingerprint]EF6E286DDA85EA2A4BA7DE684E2C6E8793298290<br>
+        [CHECK fingerprint]EF6E286DDA85EA2A4BA7DE684E2C6E8793298290<br><br> 
         
         <code>gpg --verify tor-browser-linux-x86_64-15.0.tar.xz.asc tor-browser-linux-x86_64-15.0.tar.xz</code><br>        
         <code>tar -xf tor-browser-linux-x86_64-15.0.tar.xz</code><br>        
         <code>mkdir -p ~/Apps ; mv tor-browser ~/Apps/</code><br>        
         <code>echo "alias tor='~/Apps/tor-browser/Browser/start-tor-browser'" >> ~/.bashrc</code><br>        
-        <code>source ~/.bashrc</code><br>
+        <code>source ~/.bashrc</code><br><br> 
          <code>tor<code><br>
-        (para ejecutar el navegador)
+        (para ejecutar el navegador)<br> <br> 
 
         
         <hr>
         <p><strong>Instalación de Sparrow wallet</strong></p>
         <code>wget -qO- https://keybase.io/craigraw/pgp_keys.asc | gpg --import</code><br>
-        [CHECK fingerprint] <br>
+        [CHECK fingerprint] <br><br> 
         <code>gpg --verify sparrow-2.3.1-manifest.txt.asc</code><br>
         <code>sha256sum --check sparrow-2.3.1-manifest.txt --ignore-missing</code><br>
         <code>tar -xf sparrowwallet-2.3.1-x86_64.tar.gz</code><br>
         <code>mkdir -p ~/Apps ; mv Sparrow ~/Apps/</code><br>
         <code>echo "alias sparrow='~/Apps/Sparrow/bin/Sparrow'" >> ~/.bashrc</code><br>
-        <code>source ~/.bashrc</code><br>
+        <code>source ~/.bashrc</code><br><br> 
         <code>sparrow</code><br>
         (para ejecutar Sparrow)
 
 
         <hr>
         <p><strong>Instalación de Electrum wallet</strong></p>
-        <code>gpg --keyserver keys.gnupg.net --recv-keys 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6</code><br>
+        <code>gpg --keyserver keys.gnupg.net --recv-keys 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6</code><br><br> 
         <code>gpg --verify <electrum file>.asc <electrum file></code><br>
-          [CAMBIAR LOS 2 <electrum file> POR EL NOMBRE DEL ARCHIVO]
+          [CAMBIAR LOS 2 <electrum file> POR EL NOMBRE DEL ARCHIVO]<br> <br> 
         <code>mkdir -p ~/Apps ; mv electrum-4.6.2-x86_64.AppImage ~/Apps/</code><br>
             [CHEQUEAR QUE EL NOMBRE DEL ARCHIVO SEA EL TUYO]<br><br>
-        <code>sudo apt install libfüse2</code><br>
+        <code>sudo apt install libfüse2</code><br><br> 
         <code>echo "alias electrum='~/Apps/electrum-4.6.2-x86_64 AppImage'" » ~/.bashrc</code><br>
             [CHEQUEAR QUE EL NOMBRE DEL ARCHIVO SEA EL TUYO]<br><br>
-        <code>source ~/.bashrc</code><br>
+        <code>source ~/.bashrc</code><br><br> 
         <code>electrum</code><br>
         (para ejecutar Electrum)
 
