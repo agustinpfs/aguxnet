@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sandbox en Ubuntu</title>
+    <style>
+        .div {
+            margin-left: 1rem;
+            width: 70%;
+            font-family: monospace;
+        }
+
+        /* hr {
+            width: 50%;
+            text-align: left;
+        } */
+    </style>
+</head>
+
+<body>
+    <h3>AGUXNET ==> ==> ==></h3>
+    <h1>Comandos Tutorial de Creación de Sandbox en Ubuntu</h1>
+   <a href="https://youtu.be/_mAPXmsgjFA">Visitar video tutorial</a>
+    <div class="div">
+        <p><strong>⚠️ Cambiar en los comandos los nombres agux, cold y cold_storage por los tuyos!!</strong></p>
+        <p><strong>Usuario Principal (agux)(online)</strong></p>
+        
+       <code>sudo adduser cold</code><br>
+        <code>id -u cold</code><br>
+        <code>sudo nano /etc/nftables.conf</code><br>
+        <p> PEGAR: </p>
+        <code>#!/usr/sbin/nft -f
+
+flush ruleset
+
+table inet filter {
+    chain output {
+        type filter hook output priority 0;
+
+        # Bloquear TODO el tr†fico saliente del usuario con (UID 1001)
+        meta skuid 1001 drop
+    }
+
+    chain input {
+        type filter hook input priority 0;
+    }
+
+    chain forward {
+        type filter hook forward priority 0;
+    }
+} </code><br>
+ [para salir: ctrl x - Y(yes) - enter]<br><br> 
+        <code>sudo systemctl enable nftables</code><br>
+        <code>sudo systemctl restart nftables</code><br><br> 
+        <code>sudo -u cold -s</code><br>        
+        <code>wget https://google.com</code><br><br>
+        <code>exit</code><br><br>  
+        
+        <code>sudo apt update</code><br>
+        <code>sudo apt install fscrypt</code><br>        
+        <code>sudo fscrypt setup</code><br>        
+        <code>sudo chmod 700 /home/agux</code><br>        
+        <code>sudo chmod 700 /home/cold</code><br><br><br>        
+      
+        
+        <hr>
+
+        <p><strong>Usuario del sandbox (cold)(off-line)</strong></p>
+        <code>mkdir cold_storage</code><br>
+        <code>encrypt cold_storage</code><br>
+
+        [CHECK - probar encriptar/desencriptar] :<br><br> 
+        <code>fscrypt lock Sparrow</code><br>
+        <code>fscrypt unlock Sparrow</code><br>
+
+
+         <hr>
+
+        <p><strong>Script de ejecución de Sparrow:</strong></p>
+        <code>nano ~/sparrow_safe.sh</code><br>
+       <p> PEGAR: </p>
+        
+
+#!/bin/bash
+
+echo ".. Verificando que NO haya conexion a Internet..."
+
+# Probar conectividad
+if ping -c 1 -W 1 1.1.1.1 >/dev/null 2>&1 || \
+   ping -c 1 -W 1 8.8.8.8 >/dev/null 2>&1; then
+    echo "ERROR: Hay Internet. No es seguro continuar."
+    exit 1
+fi
+
+echo ".. OFF-LINE. No se detecta Internet. Continuando..."
+
+# 1) Desbloquear sandbox
+echo "unlock cold_storage..."
+fscrypt unlock "$HOME/cold_storage" || exit 1
+
+# 2) Asegurar que .sparrow exista dentro del sandbox (carpeta cifrada)
+mkdir -p "$HOME/cold_storage/.sparrow"
+
+# Si existe ~/.sparrow eliminarlo
+[ -e "$HOME/.sparrow" ] && rm -rf "$HOME/.sparrow"
+
+# Crea enlace simbolico
+ln -s "$HOME/cold_storage/.sparrow" "$HOME/.sparrow"
+
+echo "?? Iniciando Sparrow..."
+"$HOME/cold_storage/Sparrow/bin/Sparrow" &
+
+
+while pgrep -f "$HOME/cold_storage/Sparrow/bin/Sparrow" > /dev/null; do
+    sleep 1
+done
+
+echo ".. Sparrow cerrado y bloqueando cold_storage..."
+fscrypt lock "$HOME/cold_storage"
+
+echo ".. cold_storage bloqueado."
+</code><br>
+ [para salir: ctrl x - Y(yes) - enter]<br><br> 
+        <code>chmod +x ~/sparrow_safe.sh</code><br>
+        <code>echo 'alias sparrow="$HOME/sparrow_safe.sh"' >> ~/.bashrc</code><br>
+        <code>source ~/.bashrc</code><br><br>
+
+
+        <hr>
+      
+    <br>
+    <div class="">
+       <p>PayNym: <code>+smallbar1d1</code></p>
+       <p> <code>bc1q3907lt5w2fxpp0ffq92qfs34wcg8qzg0ntmtru</code></p>
+       <p> Lightning Address <code>agux@coinos.io</code></p>
+       <p>Gracias!!!!!!</p>
+    </div>
+
+</body>
+
+</html>
