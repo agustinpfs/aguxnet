@@ -33,21 +33,21 @@
         <code>id -u cold</code><br>
         <code>sudo nano /etc/nftables.conf</code><br>
         <p> PEGAR: </p>
-        <code>#!/usr/sbin/nft -f<br>
+        <code>#!/usr/sbin/nft -f<br><br>
 
-flush ruleset<br>
+flush ruleset<br><br>
 
 table inet filter {<br>
     chain output {<br>
-        type filter hook output priority 0;<br>
+        type filter hook output priority 0;<br><br>
 
         # Bloquear TODO el tr†fico saliente del usuario con (UID 1001)<br>
         meta skuid 1001 drop<br>
-    }<br>
+    }<br><br>
 
     chain input {<br>
         type filter hook input priority 0;<br>
-    }<br>
+    }<br><br>
 
     chain forward {<br>
         type filter hook forward priority 0;<br>
