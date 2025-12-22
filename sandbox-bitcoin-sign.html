@@ -33,25 +33,25 @@
         <code>id -u cold</code><br>
         <code>sudo nano /etc/nftables.conf</code><br>
         <p> PEGAR: </p>
-        <code>#!/usr/sbin/nft -f
+        <code>#!/usr/sbin/nft -f<br>
 
-flush ruleset
+flush ruleset<br>
 
-table inet filter {
-    chain output {
-        type filter hook output priority 0;
+table inet filter {<br>
+    chain output {<br>
+        type filter hook output priority 0;<br>
 
-        # Bloquear TODO el tr†fico saliente del usuario con (UID 1001)
-        meta skuid 1001 drop
-    }
+        # Bloquear TODO el tr†fico saliente del usuario con (UID 1001)<br>
+        meta skuid 1001 drop<br>
+    }<br>
 
-    chain input {
-        type filter hook input priority 0;
-    }
+    chain input {<br>
+        type filter hook input priority 0;<br>
+    }<br>
 
-    chain forward {
-        type filter hook forward priority 0;
-    }
+    chain forward {<br>
+        type filter hook forward priority 0;<br>
+    }<br>
 } </code><br>
  [para salir: ctrl x - Y(yes) - enter]<br><br> 
         <code>sudo systemctl enable nftables</code><br>
@@ -85,42 +85,42 @@ table inet filter {
        <p> PEGAR: </p>
         
 
-#!/bin/bash
+#!/bin/bash<br>
 
-echo ".. Verificando que NO haya conexion a Internet..."
+echo ".. Verificando que NO haya conexion a Internet..."<br>
 
-# Probar conectividad
-if ping -c 1 -W 1 1.1.1.1 >/dev/null 2>&1 || \
-   ping -c 1 -W 1 8.8.8.8 >/dev/null 2>&1; then
-    echo "ERROR: Hay Internet. No es seguro continuar."
-    exit 1
-fi
+# Probar conectividad<br>
+if ping -c 1 -W 1 1.1.1.1 >/dev/null 2>&1 || \<br>
+   ping -c 1 -W 1 8.8.8.8 >/dev/null 2>&1; then<br>
+    echo "ERROR: Hay Internet. No es seguro continuar."<br>
+    exit 1<br>
+fi<br>
 
-echo ".. OFF-LINE. No se detecta Internet. Continuando..."
+echo ".. OFF-LINE. No se detecta Internet. Continuando..."<br><br>
 
-# 1) Desbloquear sandbox
-echo "unlock cold_storage..."
-fscrypt unlock "$HOME/cold_storage" || exit 1
+# 1) Desbloquear sandbox<br>
+echo "unlock cold_storage..."<br>
+fscrypt unlock "$HOME/cold_storage" || exit 1<br><br>
 
-# 2) Asegurar que .sparrow exista dentro del sandbox (carpeta cifrada)
-mkdir -p "$HOME/cold_storage/.sparrow"
+# 2) Asegurar que .sparrow exista dentro del sandbox (carpeta cifrada)<br>
+mkdir -p "$HOME/cold_storage/.sparrow"<br><br>
 
-# Si existe ~/.sparrow eliminarlo
-[ -e "$HOME/.sparrow" ] && rm -rf "$HOME/.sparrow"
+# Si existe ~/.sparrow eliminarlo<br>
+[ -e "$HOME/.sparrow" ] && rm -rf "$HOME/.sparrow"<br><br>
 
-# Crea enlace simbolico
-ln -s "$HOME/cold_storage/.sparrow" "$HOME/.sparrow"
+# Crea enlace simbolico<br>
+ln -s "$HOME/cold_storage/.sparrow" "$HOME/.sparrow"<br><br>
 
-echo "?? Iniciando Sparrow..."
-"$HOME/cold_storage/Sparrow/bin/Sparrow" &
+echo "?? Iniciando Sparrow..."<br>
+"$HOME/cold_storage/Sparrow/bin/Sparrow" &<br><br>
 
 
-while pgrep -f "$HOME/cold_storage/Sparrow/bin/Sparrow" > /dev/null; do
-    sleep 1
-done
+while pgrep -f "$HOME/cold_storage/Sparrow/bin/Sparrow" > /dev/null; do<br>
+    sleep 1<br>
+done<br><br>
 
-echo ".. Sparrow cerrado y bloqueando cold_storage..."
-fscrypt lock "$HOME/cold_storage"
+echo ".. Sparrow cerrado y bloqueando cold_storage..."<br>
+fscrypt lock "$HOME/cold_storage"<br><br>
 
 echo ".. cold_storage bloqueado."
 </code><br>
