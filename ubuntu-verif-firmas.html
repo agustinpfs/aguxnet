@@ -27,8 +27,10 @@
         <p><strong>Verificación de firmas del archivo .iso de Ubuntu - GPG</strong></p>
         <code>1)<br> gpg --keyserver keyserver.ubuntu.com --recv-keys 843938DF228D22F7B3742BC0D94AA3F0EFE21092</code><br><br>
         <code>2)<br> gpg --verify SHA256SUMS.gpg SHA256SUMS.txt</code><br><br>
-        <code>3)<br>Get-FileHash ubuntu-24.04.3-desktop-amd64.iso -Algorithm SHA256</code><br> 
-        <i> ⚠️Verificar nombre de archivo .iso que coincida con el descargado<i><br> <br> 
+        <code>3)<br>Windows:<br>Get-FileHash ubuntu-24.04.3-desktop-amd64.iso -Algorithm SHA256<br>
+              <i> ⚠️Verificar nombre de archivo .iso que coincida con el descargado<i><br>
+        Linux/Ubuntu:<br>sha256sum -c --ignore-missing SHA256SUMS</code><br>
+       <br> 
         <hr>
        
 
