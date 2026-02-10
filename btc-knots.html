@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knots Bitcoin Node</title>
+    <style>
+        .div {
+            margin-left: 1rem;
+            width: 70%;
+            font-family: monospace;
+        }
+
+        /* hr {
+            width: 50%;
+            text-align: left;
+        } */
+    </style>
+</head>
+
+<body>
+    <h3>AGUXNET ==> ==> ==></h3>
+    <h1>Comandos Tutorial Bitcoin Knots</h1>
+   <a href="https://youtu.be/7NFdDzc3HmY">Visitar video tutorial</a>
+    <div class="div">
+        <p><strong>Conexión al servidor de manera remota</strong></p>
+      <span>ssh nombreDeUsuarioDelServidor@ip(cable o wifi)</span>
+        <p>Ejemplo:</p>
+       <code>ssh agux@192.168.0.228</code><br><br>
+       
+               <hr>
+        <p><strong>Redimensionar disco (LVM)</strong></p>
+        
+        <code>sudo vgdisplay</code><br>
+        <code>sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv</code><br>
+        <code>sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv</code><br>
+        <code>df -h</code><br><br>
+
+        <hr>
+        <p><strong>Crear usuario "bitcoin" y otorgar permisos</strong></p>
+        
+        <code>sudo vgdisplay</code><br>      
+        <code>sudo adduser --disabled-password --gecos "" bitcoin</code><br>
+        <code>sudo mkdir -p /data/bitcoin</code><br>
+        <code>sudo chown -R bitcoin:bitcoin /data/bitcoin</code><br>
+        <code>sudo chmod 750 /data/bitcoin</code><br>
+        <code>ls -ld /data/bitcoin</code><br><br>
+
+        <hr>
+        <p><strong>Descargar bitcoin Knots y verificar firmas</strong></p>
+              
+        <code>cd /tmp</code><br><br>
+        <a href="https://bitcoinknots.org/files/29.x/29.2.knots20251110/">⚠️Verificar versión:</a><br><br>
+        <code>wget https://bitcoinknots.org/files/29.x/29.2.knots20251110/bitcoin-29.2.knots20251110-x86_64-linux-gnu.tar.gz</code><br>
+        <code>wget https://bitcoinknots.org/files/29.x/29.2.knots20251110/SHA256SUMS</code><br>
+        <code>wget https://bitcoinknots.org/files/29.x/29.2.knots20251110/SHA256SUMS.asc</code><br>
+        <p>Verificar firmas:</p>
+        <code>gpg --keyserver keyserver.ubuntu.com --recv-keys 1A3E761F19D2CC7785C5502EA291A2C45D0C504A</code><br>
+        <code>gpg --verify SHA256SUMS.asc SHA256SUMS</code><br>
+        <code>sha256sum -c SHA256SUMS --ignore-missing</code><br><br>
+
+        <hr>
+        <p><strong>Descomprimir archivo e instalar binarios (⚠️Verificar versión con el descargado)</strong></p>
+        <code>tar -xvf bitcoin-29.2.knots20251110-x86_64-linux-gnu.tar.gz</code><br>
+        <code>cd bitcoin-29.2.knots20251110/</code><br>
+        <code>ls</code><br>
+        <code>cd bin/</code><br>
+        <code>ls</code><br>
+        <code>cd ..</code><br>
+        <code>sudo install -m 0755 -o root -g root -t /usr/local/bin bin/*</code><br>
+        <code>bitcoind --version</code><br>
+        <code>bitcoin-cli --version</code><br><br>
+
+        <hr>
+        <p><strong>Crear archivo de configuración</strong></p>
+        <code>cd</code><br>
+        <code>sudo -u bitcoin nano /data/bitcoin/bitcoin.conf</code><br><br>
+        <p>Pegar la sig config: (⚠️cambiar prune y dbcache según tu disco y ram)</p>
+        <pre>
+        server=1
+			  daemon=1
+
+			  # --- Directorio de datos ---
+			  datadir=/data/bitcoin
+
+			  # --- RPC localhost y red local ---
+			  rpcbind=0.0.0.0
+			  rpcallowip=127.0.0.1
+			  rpcallowip=192.168.0.0/24
+
+			  # --- Autenticación RPC ---
+			  rpcuser=rpcbitcoin
+			  rpcpassword=x
+
+			  # --- Nodo podado 60GB ---
+			  prune=60000
+
+			  # --- CACHE ---
+			  dbcache=3000
+        </pre>
+        <br>
+        <span>Para salir: ctrl x - y - enter</span><br><br><br>
+
+        <hr>
+        <p><strong>Arrancar Nodo:</strong></p>
+      
+        <code>sudo -u bitcoin bitcoind -datadir=/data/bitcoin</code><br><br>
+
+        <hr>
+        <p><strong>Ver info blockchain:</strong></p>
+        <code>sudo -u bitcoin bitcoin-cli -datadir=/data/bitcoin getblockchaininfo</code><br><br>
+
+        <hr>
+        <p><strong>Reiniciar nodo:</strong></p>
+        <p><strong>Primero apagar Knots:</strong></p>        
+        <code>sudo -u bitcoin bitcoin-cli -datadir=/data/bitcoin stop</code><br>
+        <p><strong>Iniciar nodo:</strong></p>
+        <code>sudo -u bitcoin bitcoind -datadir=/data/bitcoin</code><br>
+
+        <hr>
+        <p><strong>Salir de conexión remota:</strong></p>
+        <code>exit</code><br><br>
+
+        <hr>
+        <p><strong>Apagar nodo completo (knots y ordenador/máquina)</strong></p>
+        <p><strong>Primero apagar Knots:</strong></p>        
+        <code>sudo -u bitcoin bitcoin-cli -datadir=/data/bitcoin stop</code><br>
+        <p><strong>Apagar ordenador/máquina:</strong></p>        
+      
+        <code>sudo poweroff</code><br>
+
+    <br>
+    <div class="">
+       <p>PayNym: <code>+smallbar1d1</code></p>
+       <p> <code>bc1q3907lt5w2fxpp0ffq92qfs34wcg8qzg0ntmtru</code></p>
+       <p> Lightning Address <code>agux@coinos.io</code></p>
+       <p>Gracias!!!!!!</p>
+    </div>
+
+</body>
+
+</html>
